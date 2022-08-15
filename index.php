@@ -4,9 +4,10 @@
     spl_autoload_register();
 
     $test = new Conn;
-    $test->connect;
-    //$sql ="INSERT INTO `user` (`login`,`password`) VALUES ('Tom','12345')";
+    $t = $test->connect;
+    $sql ="INSERT INTO `user` (`login`,`password`) VALUES (?,?)";
     //$test->connect->query($sql);
+    $t->prepare($sql)->execute(["Bob","1234"]);
     mb_internal_encoding("UTF-8");
     error_reporting(E_ALL);
     ini_set("display_errors","on");
@@ -19,7 +20,7 @@
     
     $uri = $_SERVER["REQUEST_URI"];
     $uri = preg_replace("/\/kvestik/","",$uri); // костыль для Xampp
-    echo $uri;
+    //echo $uri;
 
     preg_match_all("/((?<=\?)|(?<=\/)|(?<=\&))\w+/",$uri,$urlParam);
     $urlParam = $urlParam[0];
