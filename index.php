@@ -4,10 +4,10 @@
     spl_autoload_register();
 
     $test = new Conn;
-    $t = $test->connect;
-    $sql ="INSERT INTO `user` (`login`,`password`) VALUES (?,?)";
+    
+    $sql ="INSERT INTO `user` (`login`,`password`) VALUES ('Bill','12345')";
     //$test->connect->query($sql);
-    $t->prepare($sql)->execute(["Bob","1234"]);
+    $test->createComand($sql);
     mb_internal_encoding("UTF-8");
     error_reporting(E_ALL);
     ini_set("display_errors","on");

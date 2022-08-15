@@ -23,5 +23,9 @@ class Conn{
             die();
         }
     }
+
+    public function createComand(string $sql, array $param = []){
+        $this->connect->prepare($sql)->execute($param);
+    }
     
 }
