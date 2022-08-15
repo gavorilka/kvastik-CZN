@@ -1,0 +1,18 @@
+RewriteEngine On
+#для Хостинга
+#RewriteBase /
+#RewriteCond %{REQUEST_URI} !^/css/
+#RewriteCond %{REQUEST_URI} !^/fonts/
+#RewriteCond %{REQUEST_URI} !^/img/
+#Для Xampp
+RewriteBase /kvestik/
+
+RewriteCond %{REQUEST_URI} !^/kvestik/css/
+RewriteCond %{REQUEST_URI} !^/kvestik/fonts/
+RewriteCond %{REQUEST_URI} !^/kvestik/img/
+
+
+
+RewriteRule .+ index.php
+
+AddDefaultCharset utf-8

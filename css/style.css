@@ -1,0 +1,244 @@
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/Material_Icons.woff2) format('woff2');
+}
+  
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+:root {
+    font-family: sans-serif;
+    min-height: 100vh;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.attention {
+    visibility: hidden;
+    position: fixed;
+    bottom: 2em;
+    right: 2em;
+    padding: 1em;
+    background-color: brown;
+    color: #e3bbbb;
+    border-radius: 1em;
+}
+
+.attention--show {
+    visibility: visible;
+}
+
+.page-header {
+    display: grid;
+    grid-template-columns: repeat( 3, auto );
+    grid-gap: 3em;
+    align-items: center;
+    padding: 2em;
+    background-color: blueviolet;
+}
+
+.page-nav ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat( 4, auto );
+    grid-gap: 2em;
+}
+
+a:link {
+    text-decoration: none;
+    color: aliceblue;
+}
+a:visited {
+    color: aliceblue;
+}
+a:hover {
+    text-decoration: underline;
+}
+a:active {
+    color: beige;
+}
+
+.form-group {
+    display: grid;
+    grid-gap: 0.5em;
+    padding: 1em;
+    border: 1px solid #000;
+    border-radius: 1em;
+}
+.form-input,
+.form-button {
+    margin: 0.2em;
+}
+.form-input {
+    padding: 0.5em;
+    border-radius: 0.3em;
+    border: none;
+}
+
+.form-button {
+    padding: 0.5em;
+    border-radius: 0.3em;
+    border: none;
+}
+.form-button:hover {
+    cursor: pointer;
+}
+
+.form-button.primary {
+    background-color: aqua;
+}
+.form-button.info {
+    background-color: #fed561;
+}
+.form-button.danger {
+    background-color: #d82929;
+}
+a.form-button:hover {
+    text-decoration: none;
+}
+
+.file-container {
+    display: flex;
+    justify-content: center;
+}
+.file-label input[type=file] {
+    outline: 0;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+}
+.file-label {
+    width: 120px;
+    border: 2px dashed grey;
+    border-radius: 5px;
+    display: block;
+    padding: 1.2em;
+    transition: border 300ms ease;
+    cursor: pointer;
+    text-align: center;
+}
+.file-label i {
+    display: block;
+    font-size: 2.625em;
+    padding-bottom: 1rem;
+}
+.file-label i,
+.file-label .title {
+    color: grey;
+    transition: 200ms color;
+}
+.file-label:hover {
+    border: 2px solid #000;
+}
+.file-label:hover i,
+.file-label:hover .title {
+    color: #000;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #dcdcdc;
+    padding-bottom: 4em;
+}
+
+.article-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem;
+}
+.article-container>a{
+    all: unset;
+}
+.post {
+    display: grid;
+    grid-gap: 0.5em;
+    max-width: 600px;
+    padding: 3em;
+    border-radius: 3em;
+    background-color: #fff;
+    margin-bottom: 1em;
+}
+.post form {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+}
+.post__heading {
+    display: grid;
+    grid-gap: 0.4em;
+}
+.post__title {
+    font-size: 2em;
+}
+.post__subtitle {
+    font-size: 1em;
+    color: #585858;
+}
+.post__login {
+    color: #787878;
+}
+.post__img {
+    width: 100%;
+}
+.post__like {
+    border: none;
+    background: none;
+}
+.post__like:hover {
+    cursor: pointer;
+}
+
+.pagination {
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pagination__button {
+    width: 50px;
+    padding: 0.3em;
+    border: none;
+    margin: 0 1em;
+    border-radius: 0.3em;
+    background-color: white;
+}
+.pagination__button:hover {
+    cursor: pointer;
+}
+
+.comment-container {
+    display: grid;
+    grid-gap: 2em;
+    padding: 2em;
+    border-radius: 3em;
+    max-width: 600px;
+    background-color: white;
+}
+.comment {
+    display: grid;
+    grid-gap: 0.5em;
+    margin: 2em;
+}
+
