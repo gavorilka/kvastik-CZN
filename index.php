@@ -5,9 +5,9 @@
 
     $test = new Conn;
     
-    $sql ="INSERT INTO `user` (`login`,`password`) VALUES ('Bill','12345')";
+    $sql ="INSERT INTO `user` (`login`,`password`) VALUES (:name, :pass)";
     //$test->connect->query($sql);
-    $test->createComand($sql);
+    $test->createComand($sql,[':name'=>"Pit",':pass'=>"12345"]);
     mb_internal_encoding("UTF-8");
     error_reporting(E_ALL);
     ini_set("display_errors","on");
