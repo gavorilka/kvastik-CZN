@@ -1,16 +1,35 @@
 <?php
+    session_start();
+
     use Core\Conn;
     
     spl_autoload_register();
-
-    $test = new Conn;
-    
-    $sql ="INSERT INTO `user` (`login`,`password`) VALUES (:name, :pass)";
-    //$test->connect->query($sql);
-    $test->createComand($sql,[':name'=>"Pit",':pass'=>"12345"]);
     mb_internal_encoding("UTF-8");
     error_reporting(E_ALL);
     ini_set("display_errors","on");
+
+    $test = new Conn;
+
+
+    if($_POST["comeIn"] && $_POST["login"] && $_POST["password"]){
+        $login = htmlspecialchars($_POST["login"]);
+        $pass = htmlspecialchars($_POST["password"]);
+        //var_dump($_POST);
+        $user = $test->createComand("SELECT * FROM `user` WHERE login = :login",[':login' => $login]);
+        $user = $user->findOne();
+        if($pass == $user->password){
+            $_SESSION["isAuth"] = $user->login;
+            var_dump( $_SESSION["isAuth"]);
+        }
+
+    }
+    var_dump( $_SESSION["isAuth"]);
+
+
+    $sql ="INSERT INTO `user` (`login`,`password`) VALUES (:name, :pass)";
+    //$test->connect->query($sql);
+    //$test->createComand($sql,[':name'=>"Pit",':pass'=>"12345"]);
+   
     //phpinfo();
     
     //var_dump($_SERVER);
@@ -45,19 +64,22 @@
                 <li><a href="add">Создать</a></li>
             </ul>
         </nav>
-        <form name="authorization" class="header__form">
+        <form method ="POST" name="authorization" class="header__form">
+            <?php if(!isset($_SESSION["isAuth"])){ ?>
             <input class="form-input" placeholder="логин" name="login" type="text">
-            <input class="form-input" placeholder="пароль" name="login" type="password">
-            <button class="form-button primary" name="comeIn">Войти</button>
-            <button class="form-button" name="register">Присоединиться</button>
-            <button class="form-button" name="logout">Выйти</button>
+            <input class="form-input" placeholder="пароль" name="password" type="password">
+            <button class="form-button primary" name="comeIn" value="check">Войти</button>
+            <button class="form-button" name="register" value="check">Присоединиться</button>
+            <?php  } else { ?>
+            <button class="form-button" name="logout" value="check">Выйти</button>
+            <?php } ?>
         </form>
     </header>
     <main class="main">
     <?php 
-        echo"<pre>";
-        var_dump( $urlParam);
-        echo"</pre>";
+        // echo"<pre>";
+        // var_dump( $urlParam);
+        // echo"</pre>";
         switch ($uri) {
             case '':
                 include "pages/index.html";

@@ -3,7 +3,8 @@ namespace Core;
 use \PDO;
 class Conn{
     public $connect;
-
+    private $query;
+    
     protected $user ="root";
     protected $pass ="";
     protected $charSet = "utf8";
@@ -25,7 +26,14 @@ class Conn{
     }
 
     public function createComand(string $sql, array $param = []){
-        $this->connect->prepare($sql)->execute($param);
+        $this->query = $this->connect->prepare($sql);
+        $this->query->execute($param);
+        return $this;
     }
-    
+    public function findOne(){
+        if(!empty($this->query)){
+            return $this->query->fetch(PDO::FETCH_OBJ);
+        } else
+            return false;
+    }
 }
