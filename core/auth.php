@@ -14,7 +14,7 @@ if(isset($_POST["login"]) && isset($_POST["password"])){
         if(!$user){
             $_SESSION["error"] = "пользователя с логином $login не существует";
         } else if(password_verify($pass, $user->password)){
-            $_SESSION["isAuth"] = $user->login;//Вошёл
+            $_SESSION["isAuth"] = $user;//Вошёл
             unset($_SESSION["error"]);
         } else {
             $_SESSION["error"] = "Не верный пароль";
@@ -32,7 +32,7 @@ if(isset($_POST["login"]) && isset($_POST["password"])){
             $user = $con->createComand("INSERT INTO `user`(`login`, `password`) VALUES (:login, :password)",[':login' => $login,'password'=> $pass]);
             unset($_SESSION["error"]);
             $user = $con->createComand("SELECT * FROM `user` WHERE login = :login",[':login' => $login])->findOne();
-            $_SESSION["isAuth"] = $user->login;//Вошёл
+            $_SESSION["isAuth"] = $user;//Вошёл
         }
         unset($_POST["register"]);
     }

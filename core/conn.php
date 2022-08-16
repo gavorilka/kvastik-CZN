@@ -36,4 +36,14 @@ class Conn{
         } else
             return false;
     }
+    public function findAll(){
+        if(!empty($this->query)){
+            $res = array();
+            while($row = $this->query->fetch()){
+                $res[] = $row;
+            }
+            return $res;
+        } else
+            return false;
+    }
 }

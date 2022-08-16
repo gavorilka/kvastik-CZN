@@ -10,8 +10,8 @@
 
     $con = new Conn;
     include "core/auth.php";
-
-
+    
+   
     //var_dump( $_SESSION["isAuth"]);
 
 
@@ -34,6 +34,7 @@
     $urlParam = $urlParam[0];
     //$urlParam = preg_split("/\//",$uri);
     $uri = $urlParam[0];
+    //var_dump($_SESSION["isAuth"]);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -49,8 +50,10 @@
         <nav class="page-nav">
             <ul>
                 <li><a href="index">Домашняя</a></li>
+                <?php if(isset($_SESSION["isAuth"])){ ?>
                 <li><a href="user">Профиль</a></li>
                 <li><a href="add">Создать</a></li>
+                <?php } ?>
             </ul>
         </nav>
         <form method ="POST" name="authorization" class="header__form">
@@ -66,24 +69,26 @@
     </header>
     <main class="main">
     <?php 
+    // ['uri'=>...,'track'=>...'title'=>],
+    // ['uri'=>...,'track'=>...'title'=>]
         // echo"<pre>";
         // var_dump( $urlParam);
         // echo"</pre>";
         switch ($uri) {
             case '':
-                include "pages/index.html";
+                include "pages/index.php";
                 break;
             case 'index':
-                include "pages/index.html";
+                include "pages/index.php";
                 break;
             case 'user':
-                include "pages/user.html";
+                include "pages/user.php";
                 break;
             case 'add':
-                include "pages/add.html";
+                include "pages/add.php";
                 break;
-            case "single?{$urlParam[1]}":
-                include "pages/single.html";
+            case "single":
+                include "pages/single.php";
                 break;
             default:
                 echo "страница не найдена";
