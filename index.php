@@ -8,22 +8,11 @@
     error_reporting(E_ALL);
     ini_set("display_errors","on");
 
-    $test = new Conn;
+    $con = new Conn;
+    include "core/auth.php";
 
 
-    if($_POST["comeIn"] && $_POST["login"] && $_POST["password"]){
-        $login = htmlspecialchars($_POST["login"]);
-        $pass = htmlspecialchars($_POST["password"]);
-        //var_dump($_POST);
-        $user = $test->createComand("SELECT * FROM `user` WHERE login = :login",[':login' => $login]);
-        $user = $user->findOne();
-        if($pass == $user->password){
-            $_SESSION["isAuth"] = $user->login;
-            var_dump( $_SESSION["isAuth"]);
-        }
-
-    }
-    var_dump( $_SESSION["isAuth"]);
+    //var_dump( $_SESSION["isAuth"]);
 
 
     $sql ="INSERT INTO `user` (`login`,`password`) VALUES (:name, :pass)";
@@ -99,10 +88,11 @@
             default:
                 echo "страница не найдена";
         }
+        
     ?>
     </main>
-    <aside class="attention">
-        <p>Attention text</p>
+    <aside class="attention" <?= isset($_SESSION["error"]) ? 'style="visibility: visible;"':''; ?>>
+        <p><?php if(isset($_SESSION["error"])) echo $_SESSION["error"]?></p>
     </aside>
 </body>
 </html>

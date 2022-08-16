@@ -19,7 +19,7 @@ class Conn{
         try {
             $this->connect = new PDO('mysql:host=localhost;dbname=kvestik;charset='.$this->charSet,$this->user,$this->pass,$this->option);
         } catch (PDOException $e) {
-
+            //var_dump($e->getCode());
             var_dump($e->getMessage());
             die();
         }
@@ -32,7 +32,7 @@ class Conn{
     }
     public function findOne(){
         if(!empty($this->query)){
-            return $this->query->fetch(PDO::FETCH_OBJ);
+            return $this->query->fetch();
         } else
             return false;
     }
