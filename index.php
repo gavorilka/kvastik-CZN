@@ -7,7 +7,8 @@
     mb_internal_encoding("UTF-8");
     error_reporting(E_ALL);
     ini_set("display_errors","on");
-
+    $startDir = __DIR__;
+    $ds = DIRECTORY_SEPARATOR;
     $con = new Conn;
     include "core/auth.php";
     
@@ -85,6 +86,9 @@
                 include "pages/user.php";
                 break;
             case 'add':
+                include "pages/add.php";
+                break;
+            case 'update':
                 include "pages/add.php";
                 break;
             case "single":

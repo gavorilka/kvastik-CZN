@@ -1,4 +1,9 @@
 
+<?php
+    $posts = $con->createComand(" SELECT `post`.*,`user`.`login`,`user`.`isadmin` FROM `post` LEFT JOIN `user` ON `post`.`user_id` = `user`.`id` WHERE  `user_id` = {$_SESSION["isAuth"]->id};")->findAll();
+    var_dump($posts);
+    //foreach($posts as $post):
+?>
         <?php if(isset($_SESSION["isAuth"]) && $_SESSION["isAuth"]->isadmin == 1):?>
         <section class="article-container">
             <form class="post">
@@ -20,7 +25,7 @@
         <section class="article-container">
             <article class="post">
                 <div>
-                    <a class="form-button info" href="add.html">Редактировать</a>
+                    <a class="form-button info" href="update?1">Редактировать</a>
                     <a class="form-button danger" href="?del">Удалить</a>
                 </div>
                 <header class="post__heading">
