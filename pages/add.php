@@ -110,7 +110,7 @@
                 //var_dump($sql);
                 //var_dump($prepareParam);
             }
-            //unlink(string $filename, ?resource $context = null): bool //для удаления файла
+
         }
         //echo"Успешно добавлено";
         unset($_POST['title']);

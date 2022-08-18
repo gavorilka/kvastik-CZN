@@ -1,7 +1,32 @@
 
 <?php
+
+    function clearDir($dir){
+        if(file_exists($dir)){
+            $files = glob($dir.'*');
+            if(count($files)>0){
+                // foreach(glob($dir.'*') as $file){
+                //     unlink($file);
+                // }
+                array_map('unlink', $files);
+            }
+            //var_dump(glob($dir.'*'));
+            rmdir($dir);
+        }
+    }  
+    
+    if(!empty($_GET['del'])){
+        $post_id = (int)$_GET['del'];
+        $catalog = $startDir.$ds."img".$ds."posts".$ds.$post_id.$ds;
+        //echo $catalog;
+        $prepareParam = ['id' => $post_id];
+        $sql = "DELETE FROM `post` WHERE `id` = :id";
+        $post = $con->createComand($sql,$prepareParam);
+        clearDir($catalog);
+    }
+    
     $posts = $con->createComand(" SELECT `post`.*,`user`.`login`,`user`.`isadmin` FROM `post` LEFT JOIN `user` ON `post`.`user_id` = `user`.`id` WHERE  `user_id` = {$_SESSION["isAuth"]->id};")->findAll();
-    var_dump($posts);
+    //var_dump($posts);
 ?>
         <?php if(isset($_SESSION["isAuth"]) && $_SESSION["isAuth"]->isadmin == 1):?>
         <section class="article-container">
