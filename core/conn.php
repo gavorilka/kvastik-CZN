@@ -5,8 +5,8 @@ class Conn{
     public $connect;
     private $query;
     
-    protected $user ="root";
-    protected $pass ="";
+    protected $user ="b952352o_kvestik";
+    protected $pass ="Hins&8H5";
     protected $charSet = "utf8";
     protected $option = array(
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
@@ -17,7 +17,7 @@ class Conn{
 
     public function __construct(){
         try {
-            $this->connect = new PDO('mysql:host=localhost;dbname=kvestik;charset='.$this->charSet,$this->user,$this->pass,$this->option);
+            $this->connect = new PDO('mysql:host=localhost;dbname=b952352o_kvestik;charset='.$this->charSet,$this->user,$this->pass,$this->option);
         } catch (PDOException $e) {
             //var_dump($e->getCode());
             var_dump($e->getMessage());

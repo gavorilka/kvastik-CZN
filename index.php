@@ -5,8 +5,8 @@
     
     spl_autoload_register();
     mb_internal_encoding("UTF-8");
-    error_reporting(E_ALL);
-    ini_set("display_errors","on");
+    // error_reporting(E_ALL);
+    // ini_set("display_errors","on");
     $startDir = __DIR__;
     $ds = DIRECTORY_SEPARATOR;
     $con = new Conn;

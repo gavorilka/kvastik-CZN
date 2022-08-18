@@ -3,6 +3,14 @@
 <?php
 if((int)$urlParam[1]){
     $post = $con->createComand("SELECT `post`.*,`user`.`login` FROM `post` LEFT JOIN `user` ON `post`.`user_id` = `user`.`id` WHERE `post`.`id` = :param;",['param'=>$urlParam[1]])->findOne();
+
+    if(!empty($_POST["comment"])){
+        $con->createComand("INSERT INTO `coments`(`post_id`, `user_id`, `text`) VALUES (:post_id,:user_id,:text);",['post_id'=>$urlParam[1],'user_id' =>$_SESSION["isAuth"]->id,'text'=>htmlspecialchars($_POST["comment"])]);
+        unset($_POST["comment"]);    
+    }
+
+    $coments = $con->createComand("SELECT `coments`.*, `user`.`login` FROM `coments` LEFT JOIN `user` ON `coments`.`user_id` = `user`.`id` WHERE `post_id` = :param;",['param'=>$urlParam[1]])->findAll();
+    
 } else {
     header("HTTP/1.1 404 Not Found");
     header("Location: /404");
@@ -30,7 +38,7 @@ if((int)$urlParam[1]){
     <?php if(isset($_SESSION["isAuth"])){ ?>
     <section>
         <h3>Добавить комментарий</h3>
-        <form name="addComment">
+        <form name="addComment" method="POST">
             <input class="form-input" type="text" name="comment" placeholder="текст комментария">
             <button class="form-button primary">Отправить</button>
         </form>
@@ -38,9 +46,19 @@ if((int)$urlParam[1]){
     <?php }?>
     <section>
         <h3>Комментарии</h3>
+        <?php 
+            if($coments){ 
+                foreach($coments as $coment):
+        ?>
         <article class="comment">
-            <p class="post__login">login@loginovich</p>
-            <p class="post__annotation">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet commodi deleniti distinctio dolorem dolorum eos est, eveniet ipsa molestiae natus nobis officiis, praesentium quae reiciendis unde velit, voluptates? Necessitatibus, voluptatem.</p>
+            <p class="post__login"><?=$coment->login?></p>
+            <p class="post__annotation"><?=$coment->text?></p>
         </article>
+        <?php 
+                endforeach;
+            } else{
+                echo "Коментариев нет";  
+            }
+        ?>
     </section>
 </section>
