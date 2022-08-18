@@ -95,14 +95,21 @@
             $newPic = addFile($post->id,$startDir);
             if($newPic != "no_upload"){
                 echo "пользователь загружал картинку";
-                unlink(realpath($post->picture_url));
+                if(realpath($post->picture_url)){
+                    unlink(realpath($post->picture_url));
+                }
+                $param .= ' `picture_url` = :picture_url';
+                $prepareParam['picture_url'] = "img/posts/{$post->id}/$newPic";
 
             }
-            echo $newPic;
-            $sql = "UPDATE `post` SET $param WHERE `id` = :id";
-            var_dump($sql);
-            //var_dump($prepareParam);
 
+            if($param != ''){
+                $sql = "UPDATE `post` SET $param WHERE `id` = :id";
+                $post = $con->createComand($sql,$prepareParam);
+                $post = $con->createComand("SELECT `post`.*,`user`.`login` FROM `post` LEFT JOIN `user` ON `post`.`user_id` = `user`.`id` WHERE `post`.`id` = :param;",['param'=>$urlParam[1]])->findOne();
+                //var_dump($sql);
+                //var_dump($prepareParam);
+            }
             //unlink(string $filename, ?resource $context = null): bool //для удаления файла
         }
         //echo"Успешно добавлено";
