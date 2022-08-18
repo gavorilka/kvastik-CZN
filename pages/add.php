@@ -22,8 +22,10 @@
                 //echo "Файл корректен и был успешно загружен.\n";
                 return basename($_FILES['img']['name']);
             } else {
-                echo "Возможная атака с помощью файловой загрузки!\n";
+                return "Возможная атака с помощью файловой загрузки!\n";
             }
+        } else {
+            return "no_upload";
         }
         
     }
@@ -37,6 +39,7 @@
             header("Location: /404");
         }
     }
+
     if(!empty($_POST['title']) && isset($_POST['subtitle']) && isset($_POST['resume']) && isset($_POST['fulltext'])){
         if(empty($_POST['old_img']) && $uri == "add"){
             //create
@@ -67,6 +70,39 @@
             // unset($_FILES);
         } else {
             //update
+
+            
+            $param ='';
+            $prepareParam =[
+                'id' => $post->id,
+            ];
+            if($_POST['title'] != $post->title){
+                $param .= ' `title` = :title';
+                $prepareParam['title'] = $_POST['title'];
+            }
+            if($_POST['subtitle'] != $post->sub_title){
+                $param .= ' `sub_title` = :sub_title';
+                $prepareParam['sub_title'] = $_POST['subtitle'];
+            }
+            if($_POST['resume'] != $post->description){
+                $param .= ' `description` = :description';
+                $prepareParam['description'] = $_POST['resume'];
+            }
+            if($_POST['fulltext'] != $post->text){
+                $param .= ' `text` = :text';
+                $prepareParam['text'] = $_POST['fulltext'];
+            }
+            $newPic = addFile($post->id,$startDir);
+            if($newPic != "no_upload"){
+                echo "пользователь загружал картинку";
+                unlink(realpath($post->picture_url));
+
+            }
+            echo $newPic;
+            $sql = "UPDATE `post` SET $param WHERE `id` = :id";
+            var_dump($sql);
+            //var_dump($prepareParam);
+
             //unlink(string $filename, ?resource $context = null): bool //для удаления файла
         }
         //echo"Успешно добавлено";
@@ -75,7 +111,7 @@
         unset($_POST['resume']);
         unset($_POST['fulltext']);
         unset($_FILES['img']);
-        var_dump($_POST);
+        //var_dump($_POST);
     }
 
     

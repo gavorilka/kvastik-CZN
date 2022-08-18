@@ -2,7 +2,6 @@
 <?php
     $posts = $con->createComand(" SELECT `post`.*,`user`.`login`,`user`.`isadmin` FROM `post` LEFT JOIN `user` ON `post`.`user_id` = `user`.`id` WHERE  `user_id` = {$_SESSION["isAuth"]->id};")->findAll();
     var_dump($posts);
-    //foreach($posts as $post):
 ?>
         <?php if(isset($_SESSION["isAuth"]) && $_SESSION["isAuth"]->isadmin == 1):?>
         <section class="article-container">
@@ -23,20 +22,27 @@
         </section>
         <?php endif;?>
         <section class="article-container">
+        <?php foreach($posts as $post): ?>
             <article class="post">
                 <div>
-                    <a class="form-button info" href="update?1">Редактировать</a>
-                    <a class="form-button danger" href="?del">Удалить</a>
+                    <a class="form-button info" href="update?<?=$post->id ?>">Редактировать</a>
+                    <a class="form-button danger" href="?del=<?=$post->id ?>&user<?=$_SESSION["isAuth"]->id?>">Удалить</a>
                 </div>
                 <header class="post__heading">
-                    <h2 class="post__title">Title example</h2>
-                    <h3 class="post__subtitle">Subtitle example</h3>
-                    <p class="post__login">login@loginovich</p>
-                    <p class="post__date">12.12.2012</p>
+                    <h2 class="post__title"><?=$post->title?></h2>
+                    <h3 class="post__subtitle"><?=$post->sub_title?></h3>
+                    <?php if(isset($_SESSION["isAuth"]) && $_SESSION["isAuth"]->isadmin == 1):?>
+                        <p class="post__login"><?=$post->login?></p>
+                    <?php endif; ?>
+                    <p class="post__date"><?=$post->create_date?></p>
                 </header>
                 <figure class="post__img">
-                    <img class="post__img" alt="example" src="img/posts/1.jpeg">
+                    <img class="post__img" alt="example" src="<?=$post->picture_url?>">
                 </figure>
-                <p class="post__annotation">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquid architecto aspernatur delectus deserunt eaque eos in maxime neque perspiciatis quas quia quidem quis, quos, reiciendis sunt tempore tenetur. Numquam?</p>
+                <p class="post__annotation post__title"><strong>Резюме<str></p>
+                <p class="post__annotation"><?=$post->description?></p>
+                <p class="post__annotation post__title">Полный текст</p>
+                <p class="post__annotation"><?=$post->text?></p>
             </article>
+        <?php endforeach; ?>
         </section>
